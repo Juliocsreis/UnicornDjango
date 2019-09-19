@@ -1,9 +1,14 @@
 import uuid
 import os
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.core import validators
+from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
                                         PermissionsMixin
 from django.conf import settings
+from rest_framework.authtoken.models import Token
 #from django.contrib.gis.db import models
 #from django.core.validators import MinValueValidator, MaxValueValidato
 
@@ -38,14 +43,24 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     """Custom user model that supports using email instead of username"""
-    email = models.EmailField(max_length=255, unique=True)
+    email = models.EmailField(max_length=255, unique=True, error_messages={
+        'unique': ("A user with that email already exists."),
+    })
     name = models.CharField(max_length=255)
+    date_joined = models.DateTimeField(('date joined'), default=timezone.now)
     user_category = models.CharField(max_length=1, choices=USER_CATEGORIES)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    facebook_id = models.CharField(max_length=200, unique=True)
+    profile_image = models.CharField(max_length=300, blank=True)
+    gender = models.CharField(max_length=10, blank=True)
 
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    Token.objects.get_or_create(user=instance)
 
 # Create your models here.
