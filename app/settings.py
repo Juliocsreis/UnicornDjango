@@ -80,8 +80,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 #Oatuh2 ->conforme tutorial intenet simple is better
-                'social_django.context_processors.backends',  # <--
-                'social_django.context_processors.login_redirect', # <--
+#                'social_django.context_processors.backends',  # <--
+#                'social_django.context_processors.login_redirect', # <--
             ],
         },
     },
@@ -122,13 +122,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 #Oatuh2 ->conforme tutorial intenet simple is better
-AUTHENTICATION_BACKENDS = (
-    'social_core.backends.github.GithubOAuth2',#editar depois
-    'social_core.backends.twitter.TwitterOAuth',#editar depois
-    'social_core.backends.facebook.FacebookOAuth2',
-
-    'django.contrib.auth.backends.ModelBackend',
-)
+#AUTHENTICATION_BACKENDS = (
+#    'social_core.backends.github.GithubOAuth2',#editar depois
+#    'social_core.backends.twitter.TwitterOAuth',#editar depois
+#    'social_core.backends.facebook.FacebookOAuth2',
+#
+#    'django.contrib.auth.backends.ModelBackend',
+#)
 
 
 # Internationalization
@@ -155,8 +155,9 @@ STATICFILES_STORAGE = 'app.storage.WhiteNoiseStaticFilesStorage'
 
 AUTH_USER_MODEL = 'core.User'
 
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = 'home'
+#Oatuh2 ->conforme tutorial intenet simple is better (ainda avaliando necessidade)
+#LOGIN_URL = 'login'
+#LOGOUT_URL = 'logout'
+#LOGIN_REDIRECT_URL = 'home'
 
 django_heroku.settings(locals())

@@ -17,12 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 
-api_patterns = [
-    path('', include('core.urls')),
-]
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v0/', include(api_patterns)),
-    path(r'^oauth/', include('social_django.urls', namespace='social')),
+    path('',include('core.urls')),
+
 ]
