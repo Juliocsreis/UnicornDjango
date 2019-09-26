@@ -9,8 +9,15 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
                                         PermissionsMixin
 from django.conf import settings
 from rest_framework.authtoken.models import Token
-#from django.contrib.gis.db import models
-#from django.core.validators import MinValueValidator, MaxValueValidato
+
+
+
+def recipe_image_file_path(instance, filename):
+    """Generate file path for new recipe image"""
+    ext = filename.split('.')[-1]
+    filename = f'{uuid.uuid4()}.{ext}'
+
+    return os.path.join('uploads/recipe', filename)
 
 
 USER_CATEGORIES = (
@@ -52,15 +59,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     facebook_id = models.CharField(max_length=200, unique=True)
-    profile_image = models.CharField(max_length=300, blank=True)
+    profile_image = models.ImageField(null=True, upload_to=recipe_image_file_path)
     gender = models.CharField(max_length=10, blank=True)
 
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
 
-@receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def create_auth_token(sender, instance=None, created=False, **kwargs):
-    Token.objects.get_or_create(user=instance)
-
-# Create your models here.
+    class Meta:
+        db_table = 'user_info_login'

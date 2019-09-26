@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'core',
-    'social_django',
 ]
 
 
@@ -62,8 +61,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #Oatuh2 ->conforme tutorial intenet simple is better
-    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -161,3 +158,7 @@ AUTH_USER_MODEL = 'core.User'
 #LOGIN_REDIRECT_URL = 'home'
 
 django_heroku.settings(locals())
+
+#upload midia to DB
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
