@@ -76,9 +76,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                #Oatuh2 ->conforme tutorial intenet simple is better
-#                'social_django.context_processors.backends',  # <--
-#                'social_django.context_processors.login_redirect', # <--
             ],
         },
     },
@@ -118,14 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-#Oatuh2 ->conforme tutorial intenet simple is better
-#AUTHENTICATION_BACKENDS = (
-#    'social_core.backends.github.GithubOAuth2',#editar depois
-#    'social_core.backends.twitter.TwitterOAuth',#editar depois
-#    'social_core.backends.facebook.FacebookOAuth2',
-#
-#    'django.contrib.auth.backends.ModelBackend',
-#)
 
 
 # Internationalization
@@ -146,19 +135,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = 'vol/web/static'
 #STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 STATICFILES_STORAGE = 'app.storage.WhiteNoiseStaticFilesStorage'
 
 AUTH_USER_MODEL = 'core.User'
 
-#Oatuh2 ->conforme tutorial intenet simple is better (ainda avaliando necessidade)
-#LOGIN_URL = 'login'
-#LOGOUT_URL = 'logout'
-#LOGIN_REDIRECT_URL = 'home'
 
 django_heroku.settings(locals())
 
 #upload midia to DB
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = '/vol/web/media'
