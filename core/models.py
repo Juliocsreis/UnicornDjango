@@ -58,7 +58,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     user_category = models.CharField(max_length=1, choices=USER_CATEGORIES)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    facebook_id = models.CharField(max_length=200, unique=True)
+    facebook_id = models.CharField(null=True, max_length=200, unique=True)
     profile_image = models.ImageField(null=True, upload_to=recipe_image_file_path)
     gender = models.CharField(max_length=10, blank=True)
 
